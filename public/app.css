@@ -1,0 +1,10 @@
+body {
+  align-items: center;
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 30px;
+}
