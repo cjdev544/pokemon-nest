@@ -8,22 +8,49 @@
 2. Ejecutar
 
 ```
-npm install
+    npm install
 ```
 
 3. Tener Nest CLI instalado
 
 ```
-npm install -g @nestjs/cli
+    npm install -g @nestjs/cli
 ```
 
 4. Levantar la base de datos
 
 ```
-docker-compose up -d
+    docker-compose up -d
+```
+
+5. Clonar el archivo **.env.example** y renombrarlo a **.env**
+
+6. Llenar las variables de entorno definidas en el **.env**
+
+7. Ejecutar la app en desarrollo
+
+```
+    npm run start:dev
+```
+
+8. Recontruir la base de datos
+
+```
+http://localhost:3000/api/v2/seed
+```
+
+# Build de producción
+
+1. Crear archivo **.env.prod**
+2. Llenar las variables para producción
+3. Crear la nueva imagen de docker
+
+```dotnetcli
+    docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
 ```
 
 ## Stack utilizado
 
 - NestJs
 - MongoDB
+- Docker

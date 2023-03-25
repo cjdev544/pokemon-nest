@@ -9,13 +9,16 @@ import { Model, isValidObjectId } from 'mongoose';
 import { Pokemon } from './entities/pokemon.entity';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
+import { PaginationDto } from 'src/common/dto/pagination.tdo';
 
 @Injectable()
 export class PokemonService {
   constructor(
     @InjectModel(Pokemon.name)
     private readonly pokemonModel: Model<Pokemon>,
-  ) {}
+  ) {
+    console.log(process.env.PORT);
+  }
 
   async create(createPokemonDto: CreatePokemonDto) {
     createPokemonDto.name = createPokemonDto.name.trim().toLowerCase();
@@ -27,8 +30,14 @@ export class PokemonService {
     }
   }
 
-  async findAll() {
-    return await this.pokemonModel.find();
+  async findAll(paginationDto: PaginationDto) {
+    const { limit = 10, ofset = 0 } = paginationDto;
+    return await this.pokemonModel
+      .find()
+      .limit(limit)
+      .skip(ofset)
+      .select('-__v')
+      .sort({ no: 1 });
   }
 
   async findOne(term: string) {
